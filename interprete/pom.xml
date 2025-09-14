@@ -18,26 +18,22 @@
             <version>${antlr4.version}</version>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-maven-plugin</artifactId>
-                <version>${antlr4.version}</version>
-                <executions>
-                    <execution>
-                        <id>antlr</id>
-                        <goals>
-                            <goal>antlr4</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <arguments>
-                        <argument>-visitor</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+		<build>
+		    <plugins>
+		      <plugin>
+		        <groupId>org.antlr</groupId>
+		        <artifactId>antlr4-maven-plugin</artifactId>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>antlr4</goal>
+		            </goals>
+		            <configuration>
+		              <visitor>true</visitor>
+		            </configuration>
+		          </execution>
+		        </executions>
+		      </plugin>
+		    </plugins>
+		  </build>
 </project>
