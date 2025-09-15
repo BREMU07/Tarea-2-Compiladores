@@ -25,13 +25,16 @@ println: PRINTLN expression SEMICOLON
 	{System.out.println($expression.value);};
 
 expression returns [Object value]:
-	t1=term {$value = (int)$t1.value;}
-		(PLUS t2=term {$value = (int)$value + (int)$t2.value;})*;
+	t1=factor {$value = (int)$t1.value;}
+		(PLUS t2=factor {$value = (int)$value + (int)$t2.value;})*;
+
+factor returns [Object value]: t1=term {$value = (int)$t1.value;}
+				(MULT t2=term {$value = (int)$value * (int)$t2.value;})*;
 
 term returns [Object value]: 
-	NUMBER {$value = Integer.parseInt($NUMBER.text); } 
-	| 
-	ID {$value = symbolTable.get($ID.text);};
+	NUMBER {$value = Integer.parseInt($NUMBER.text);} 
+	| ID {$value = symbolTable.get($ID.text);}
+	| PAR_OPEN expression {$value = $expression.value;} PAR_CLOSE;
 
 PROGRAM:  'program';
 VAR: 'var';
