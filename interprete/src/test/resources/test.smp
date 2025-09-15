@@ -1,3 +1,7 @@
 program miprograma {
-	println (2+2)*4;
+	if (true) {
+		println (2+2)*4;
+	} else {
+		println 0;
+	}
 }
