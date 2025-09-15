@@ -1,7 +1,9 @@
 program miprograma {
-	if (true) {
-		println (2+2)*4;
+	var x;
+	x = 5;
+	if (false) {
+		println 2+2*4;
 	} else {
-		println 0;
+		println x;
 	}
 }

@@ -1,5 +1,7 @@
 package com.miorganizacion.simple.interprete.ast;
 
+import java.util.Map;
+
 public class Println implements ASTNode {
 	private ASTNode data;
 	
@@ -9,8 +11,8 @@ public class Println implements ASTNode {
 	}
 
 	@Override
-	public Object execute() {
-		System.out.println(data.execute());
+	public Object execute(Map<String, Object> symbolTable) {
+		System.out.println(data.execute(symbolTable));
 		return null;
 	}
 

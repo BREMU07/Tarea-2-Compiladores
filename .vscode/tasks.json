@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Maven Clean Compile",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["clean", "compile"],
+            "options": {
+                "cwd": "${workspaceFolder}/interprete"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Maven Run",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["exec:java", "-Dexec.mainClass=com.miorganizacion.simple.interprete.Main"],
+            "options": {
+                "cwd": "${workspaceFolder}/interprete"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "dependsOn": "Maven Clean Compile"
+        }
+    ]
+}

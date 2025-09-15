@@ -1,5 +1,7 @@
 package com.miorganizacion.simple.interprete.ast;
 
+import java.util.Map;
+
 public class Addition implements ASTNode {
 	private ASTNode operand1;
 	private ASTNode operand2;
@@ -14,9 +16,8 @@ public class Addition implements ASTNode {
 	
 	
 	@Override
-	public Object execute() {
-		// TODO Auto-generated method stub
-		return (int) operand1.execute()+ (int)operand2.execute();
+	public Object execute(Map<String, Object> symbolTable) {
+		return (int) operand1.execute(symbolTable)+ (int)operand2.execute(symbolTable);
 	}
 
 

@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Simple Interpreter",
+            "request": "launch",
+            "mainClass": "com.miorganizacion.simple.interprete.Main",
+            "projectName": "prueba",
+            "cwd": "${workspaceFolder}/interprete",
+            "args": [],
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Launch Simple Interpreter with Custom File",
+            "request": "launch",
+            "mainClass": "com.miorganizacion.simple.interprete.Main",
+            "projectName": "prueba",
+            "cwd": "${workspaceFolder}/interprete",
+            "args": ["${input:fileName}"],
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "fileName",
+            "description": "Enter the file name to process",
+            "default": "test.smp",
+            "type": "promptString"
+        }
+    ]
+}

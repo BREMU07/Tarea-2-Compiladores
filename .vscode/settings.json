@@ -1,0 +1,13 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.debug.settings.enableRunDebugCodeLens": true,
+    "java.project.sourcePaths": [
+        "interprete/src/main/java",
+        "interprete/target/generated-sources/antlr4"
+    ],
+    "java.project.referencedLibraries": [
+        "interprete/target/classes/**/*.jar"
+    ],
+    "java.debug.logLevel": "info"
+}
