@@ -6,8 +6,6 @@ grammar Simple;
 	import java.util.List;
 	import java.util.ArrayList;
 	import com.miorganizacion.simple.interprete.ast.*;
-
-	
 }
 
 @parser::members{
@@ -38,15 +36,12 @@ var_decl returns [ASTNode node]:
 	VAR ID SEMICOLON { $node = new VarDecl($ID.text);};
 
 var_assign returns [ASTNode node]: 
-	ID ASSIGN expression SEMICOLON {$node = new VarAssign($ID.text, $expression.node);};
-println returns [ASTNode node]: PRINTLN expression SEMICOLON
-	{$node = new Println($expression.node);};
+	ID ASSIGN logic_ope SEMICOLON {$node = new VarAssign($ID.text, $logic_ope.node);};
+println returns [ASTNode node]: PRINTLN logic_ope SEMICOLON
+	{$node = new Println($logic_ope.node);};
 
-expression returns [ASTNode node]:
-	t1=factor {$node = $t1.node;}
-		(PLUS t2=factor {$node = new Addition($node, $t2.node);})*;
-		
-conditional returns [ASTNode node]: IF PAR_OPEN expression PAR_CLOSE
+
+conditional returns [ASTNode node]: IF PAR_OPEN logic_ope PAR_CLOSE
 			 {
 			 	List<ASTNode> body = new ArrayList <ASTNode>();
 			 }
@@ -57,19 +52,34 @@ conditional returns [ASTNode node]: IF PAR_OPEN expression PAR_CLOSE
 			 }
 			 BRACKET_OPEN (s2=sentence{ elseBody.add($s2.node);})* BRACKET_CLOSE
 			 {
-			 	$node = new If($expression.node, body, elseBody);
-			 	
+			 	$node = new If($logic_ope.node, body, elseBody);
+
 			 }
 			 ;
 
+logic_ope returns [ASTNode node]:
+	t1=expression {$node = $t1.node;}
+		(EQ e2=expression {$node = new Equal($node, $e2.node);})*;
+
+
+expression returns [ASTNode node]:
+	t1=factor {$node = $t1.node;}
+		(PLUS t2=factor {$node = new Addition($node, $t2.node);})*;
+
+
 factor returns [ASTNode node]: 
+		p1=power {$node = $p1.node;}
+				(MULT p2=power {$node = new Multiplication($node, $p2.node);})*;
+
+power returns [ASTNode node]:
 		t1=term {$node = $t1.node;}
-				(MULT t2=term {$node = new Multiplication($node, $t2.node);})*;
+				(POWER t2=term {$node = new Power($node, $t2.node);})*;
 
 term returns [ASTNode node]: 
 	NUMBER {$node = new Constant(Integer.parseInt($NUMBER.text));} 
 	| BOOLEAN {$node = new Constant(Boolean.parseBoolean($BOOLEAN.text));}
 	| ID {$node = new VarRef($ID.text);}
+	| RAND_FLIP NUMBER {$node = new RandFlip(Double.parseDouble($NUMBER.text)); }
 	| PAR_OPEN expression {$node = $expression.node;} PAR_CLOSE;
 
 PROGRAM:  'program';
@@ -83,9 +93,15 @@ MINUS: '-';
 MULT: '*';
 DIV: '/';
 
+RAND_FLIP: '?';
+
+POWER: '^';
+
 AND: '&&';
 OR: '||';
 NOT: '!';
+
+
 
 GT: '>';
 LT: '<';

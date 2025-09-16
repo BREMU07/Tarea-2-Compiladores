@@ -1,9 +1,10 @@
 program miprograma {
 	var x;
-	x = 5;
-	if (false) {
-		println 2+2*4;
+	x = ?50;
+	println(x);
+	if (x) {
+		println 5^2;
 	} else {
-		println x;
+		println (10)==(5+5);
 	}
 }
